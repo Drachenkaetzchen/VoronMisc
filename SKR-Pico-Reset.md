@@ -24,7 +24,9 @@ chmod +x /usr/local/bin/restart-skr-pico.sh
 - **To manually reset the SKR Pico, execute** `/usr/local/bin/restart-skr-pico.sh`
 - **To automatically reset the SKR Pico prior each Klipper start, copy and paste this command to modify the Klipper service, then restart your Pi:**
 ```
-grep -c "ExecStartPre=/usr/local/bin/restart-skr-pico.sh" /etc/systemd/system/klipper.service || sed -i '/^\[Service\].*/a ExecStartPre=/usr/local/bin/restart-skr-pico.sh' /etc/systemd/system/klipper.service
+sudo mkdir /etc/systemd/system/klipper.service.d
+echo -e '[Service]\nExecStartPre=/usr/local/bin/restart-skr-pico.sh' | sudo tee /etc/systemd/system/klipper.service.d/restart-rp2040.conf
+sudo systemctl daemon-reload
 ```
 
 # Wiring
