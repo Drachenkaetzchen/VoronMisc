@@ -22,6 +22,27 @@ chmod +x /usr/local/bin/restart-skr-pico.sh
 ```
 
 - **To manually reset the SKR Pico, execute** `/usr/local/bin/restart-skr-pico.sh`
+
+## Modified Workaround
+
+Some SKR Picos need rebooting multiple times, this script will perform that once per second until it is present. The same dupont connector is needed.
+
+```
+#!/bin/bash
+port=/dev/serial/by-id/usb-Klipper_rp2040_<<<YOUR_ID_HERE>>>-if00
+
+while ! [ -e "$port" ]
+do
+   echo "SKR is not found"
+   raspi-gpio set 26 op
+   raspi-gpio set 26 dl
+   raspi-gpio set 26 dh
+   sleep 1
+done
+echo "SKR is found!"
+```
+
+
 - **To automatically reset the SKR Pico prior each Klipper start, copy and paste this command to modify the Klipper service, then restart your Pi:**
 ```
 sudo mkdir /etc/systemd/system/klipper.service.d
