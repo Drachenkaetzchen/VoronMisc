@@ -14,14 +14,14 @@ Since no real solution exists so far, we can implement a mechanism to reset the 
 ```
 cat << EOT > /usr/local/bin/restart-skr-pico.sh
 #!/bin/bash
-raspi-gpio set 26 op
-raspi-gpio set 26 dl
-raspi-gpio set 26 dh
+pinctrl set 26 op
+pinctrl set 26 dl
+pinctrl set 26 dh
 EOT
 chmod +x /usr/local/bin/restart-skr-pico.sh
 ```
 
-- **To manually reset the SKR Pico, execute** `/usr/local/bin/restart-skr-pico.sh`
+- **To manually reset the SKR Pico, execute** `sudo /usr/local/bin/restart-skr-pico.sh`
 
 ## Modified Workaround
 
